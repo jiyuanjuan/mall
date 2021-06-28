@@ -1,5 +1,5 @@
 <template>
-  <div>{{$store.state.count}}</div>
+  <div>商品</div>
 </template>
 
 <script>

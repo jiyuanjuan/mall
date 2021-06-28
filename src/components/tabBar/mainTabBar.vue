@@ -2,12 +2,12 @@
   <div>
     <router-view />
     <tab-bar>
-      <tab-bar-item path="home" activeColor="blue">
+      <tab-bar-item path="home">
         <template v-slot:img>
-          <img src="../../assets/logo.png" alt="" />
+          <img src="~assets/img/tabbar/home.svg" alt="" />
         </template>
         <template v-slot:img_active>
-          <img src="../../assets/logo_active.png" alt="" />
+          <img src="~assets/img/tabbar/home_active.svg" alt="" />
         </template>
         <template v-slot:name>
           <div>首页</div>
@@ -15,10 +15,10 @@
       </tab-bar-item>
       <tab-bar-item path="category">
         <template v-slot:img>
-          <img src="../../assets/logo.png" alt="" />
+          <img src="~assets/img/tabbar/category.svg" alt="" />
         </template>
         <template v-slot:img_active>
-          <img src="../../assets/logo_active.png" alt="" />
+          <img src="~assets/img/tabbar/category_active.svg" alt="" />
         </template>
         <template v-slot:name>
           <div>商品</div>
@@ -26,10 +26,10 @@
       </tab-bar-item>
       <tab-bar-item path="cart">
         <template v-slot:img>
-          <img src="../../assets/logo.png" alt="" />
+          <img src="~assets/img/tabbar/cart.svg" alt="" />
         </template>
         <template v-slot:img_active>
-          <img src="../../assets/logo_active.png" alt="" />
+          <img src="~assets/img/tabbar/cart_active.svg" alt="" />
         </template>
         <template v-slot:name>
           <div>购物车</div>
@@ -37,10 +37,10 @@
       </tab-bar-item>
       <tab-bar-item path="profile">
         <template v-slot:img>
-          <img src="../../assets/logo.png" alt="" />
+          <img src="~assets/img/tabbar/profile.svg" alt="" />
         </template>
         <template v-slot:img_active>
-          <img src="../../assets/logo_active.png" alt="" />
+          <img src="~assets/img/tabbar/profile_active.svg" alt="" />
         </template>
         <template v-slot:name>
           <div>我的</div>
