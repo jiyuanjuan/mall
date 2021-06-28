@@ -1,12 +1,10 @@
 import axios from "axios"
 
-//设置全局默认baseURL
 axios.defaults.baseURL = "http://123.207.32.32:8000"
 //单个请求
 axios({
-  // baseURL:"http://123.207.32.32:8000",
   url:"/home/multidata",
-  params:{    //相当于http://123.207.32.32:8000/home/multidata?type=123&page=1
+  params:{    
     type:123,
     page:1
   }
@@ -16,7 +14,6 @@ axios({
 
 //多个请求
 axios.all([axios({
-    // baseURL:"http://123.207.32.32:8000",
   url:"/home/multidata",
 }),axios({
   url:"/home/multidata",

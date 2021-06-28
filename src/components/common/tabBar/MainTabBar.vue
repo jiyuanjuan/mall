@@ -51,13 +51,13 @@
 </template>
 
 <script>
-import tabBar from "../tabBar/tabBarItem/tabBar";
-import tabBarItem from "../tabBar/tabBarItem/tabBarItem";
+import TabBar from "../tabBar/tabBarItem/TabBar";
+import TabBarItem from "../tabBar/tabBarItem/TabBarItem";
 export default {
   name: "mainTabBar",
   components: {
-    tabBar,
-    tabBarItem,
+    TabBar,
+    TabBarItem,
   },
 };
 </script>

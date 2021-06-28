@@ -1,13 +1,16 @@
 <template>
-  <div>
+  <div id="home">
+    <nav-bar></nav-bar>
   </div>
 </template>
 
 <script>
-export default {
-  name: "home",
-  components: {
+import navBar from "components/common/navbar/NavBar"
 
+export default {
+  name: "Home",
+  components: {
+    navBar
   },
 };
 </script>

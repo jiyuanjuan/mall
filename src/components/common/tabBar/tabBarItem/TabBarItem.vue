@@ -1,6 +1,6 @@
 <template>
   <div class="tab-bar-item" @click="item">
-    <div v-if="isShow"><slot name="img"></slot></div>
+    <div v-if="!isShow"><slot name="img"></slot></div>
     <div v-else><slot name="img_active"></slot></div>
     <div :style="activeStyle" class="item_font"><slot name="name"></slot></div>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "tabBarItem",
+  name: "TabBarItem",
   props: {
     path: {
       type: String,
@@ -18,7 +18,7 @@ export default {
     },
     activeColor: {
       type: String,
-      default: "#000",
+      default: "red",
     },
   },
   computed: {
@@ -49,8 +49,6 @@ export default {
     height: 20px;
     vertical-align: middle; //消除文字和图片之间的默认间隙
   }
-  .item_font{
-    color: red;
-  }
+
 }
 </style>
