@@ -24,6 +24,7 @@ export default{
     top: 0;
     left: 0;
     right: 0;
+    z-index: 9;
     .left{
         width: 60px;
     }

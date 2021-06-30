@@ -5,5 +5,5 @@ export function getHomeData(url='home/multidata') {
 }
 
 export function getGoodsData(url='home/data') {
-    return request(url);
+    return request(url+"?type=pop&page=1");
 }
