@@ -27,10 +27,13 @@ export default {
   font-size: 12px;
   text-align: center;
   margin-top: 10px;
+  border-bottom: 6px solid #efecec;
   a{
     flex: 1;
+    font-size: 10px;
+    color: #666;
     img{
-      width: 77px;
+      width: 70px;
     }
   }
 }
