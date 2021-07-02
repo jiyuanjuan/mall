@@ -1,21 +1,25 @@
 <template>
-  <div class="goods-list">
-    <goods-list-item v-for="item in goodsData" :key="item.iid" :goodsItem="item"></goods-list-item>
-  </div>
+    <div class="goods-list">
+      <goods-list-item
+        v-for="item in goodsData"
+        :key="item.iid"
+        :goodsItem="item"
+      ></goods-list-item>
+    </div>
 </template>
 
 <script>
-import GoodsListItem from "./GoodsListItem"
+import GoodsListItem from "./GoodsListItem";
 
 export default {
   name: "GoodsList",
-  props:{
-      goodsData:{
-          type:Array,
-          default(){
-              return []
-          }
-      }
+  props: {
+    goodsData: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   components: {
     GoodsListItem,
@@ -24,9 +28,9 @@ export default {
 </script>
 
 <style scope lang='scss'>
-.goods-list{
+  .goods-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
+  }
 </style>

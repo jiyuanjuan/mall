@@ -18,7 +18,7 @@ export default{
     line-height: 45px;
     text-align: center;
     background-color: #ef919f;
-    box-shadow: 0 1px 1px #efecec;
+    box-shadow: 0 1px 2px #e0b0b0;
     display: flex;
     position: fixed;
     top: 0;

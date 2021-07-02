@@ -1,7 +1,12 @@
 <template>
   <div class="tab-contorl">
-    <div @click="tabClick(index)" class="tab-itme"  v-for="(item, index) in tabTitle" :key="item">
-      <span :class="{spanActive:(currentIndex === index)}">
+    <div
+      @click="tabClick(index)"
+      class="tab-itme"
+      v-for="(item, index) in tabTitle"
+      :key="item"
+    >
+      <span :class="{ spanActive: currentIndex === index }">
         {{ item }}
       </span>
     </div>
@@ -10,7 +15,6 @@
 
 <script>
 import {ref } from "vue"
-
 export default {
   name: "TabContorl",
   props: {
@@ -21,17 +25,20 @@ export default {
       },
     },
   },
-  setup(){
+
+  setup(props,context){
       const currentIndex = ref(0)
       const tabClick = (index)=>{
-          currentIndex.value = index
+          currentIndex.value = index;
+          context.emit('clickTab',index)
       }
       return{
           tabClick,
           currentIndex
       }
   }
-};
+
+}
 </script>
 
 <style scope lang='scss'>

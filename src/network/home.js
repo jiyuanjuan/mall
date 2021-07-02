@@ -4,6 +4,9 @@ export function getHomeData(url='home/multidata') {
     return request(url);
 }
 
-export function getGoodsData(url='home/data') {
-    return request(url+"?type=pop&page=1");
+export function getGoodsData(type='pop',page='1') {
+    return request({
+        url:'home/data?type=' + type + '&page=' + page,
+        method:'get'
+    });
 }

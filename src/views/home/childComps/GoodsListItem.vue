@@ -1,7 +1,7 @@
 <template>
   <div class="goods-list-item">
     <a :href="goodsItem.link">
-      <img :src="goodsItem.show.img" alt="" />
+      <img :src="goodsItem.show.img" alt="" @load="imgLoad" />
       <p>{{ goodsItem.title }}</p>
       <div>
         <span>{{ goodsItem.orgPrice }}</span>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { useStore, } from 'vuex';
+
 export default {
   name: "GoodsListItem",
   props: {
@@ -22,6 +24,18 @@ export default {
       },
     },
   },
+
+  setup(){
+   const store = useStore()
+   const imgLoad = () => {
+          store.commit('imgCount')
+       }
+
+   return{
+     store,
+     imgLoad
+   }
+  }
 };
 </script>
 
@@ -34,8 +48,12 @@ export default {
         width: 100%;
     }
     p{
+      width: 95%;
         font-size: 14px;
         color: #333;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
     div{
         font-size: 12px;

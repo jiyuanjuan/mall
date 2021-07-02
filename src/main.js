@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import { Swipe, SwipeItem } from 'vant'
 
+
 import 'assets/css/base.css';
 import 'assets/css/normalize.css';
 import 'vant/lib/index.css';
