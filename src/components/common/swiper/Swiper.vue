@@ -26,7 +26,6 @@ export default {
 
 <style scope lang="scss">
 #swiper {
-  margin-top: 45px;
   .my-swipe {
     text-align: center;
     img{

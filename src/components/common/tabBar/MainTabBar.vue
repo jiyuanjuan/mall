@@ -1,8 +1,7 @@
 <template>
   <div>
-    <router-view />
     <tab-bar>
-      <tab-bar-item path="home">
+      <tab-bar-item path="/home">
         <template v-slot:img>
           <img src="~assets/img/tabbar/home.svg" alt="" />
         </template>
@@ -13,7 +12,7 @@
           <div>首页</div>
         </template>
       </tab-bar-item>
-      <tab-bar-item path="category">
+      <tab-bar-item path="/category">
         <template v-slot:img>
           <img src="~assets/img/tabbar/category.svg" alt="" />
         </template>
@@ -24,7 +23,7 @@
           <div>商品</div>
         </template>
       </tab-bar-item>
-      <tab-bar-item path="cart">
+      <tab-bar-item path="/cart">
         <template v-slot:img>
           <img src="~assets/img/tabbar/cart.svg" alt="" />
         </template>
@@ -35,7 +34,7 @@
           <div>购物车</div>
         </template>
       </tab-bar-item>
-      <tab-bar-item path="profile">
+      <tab-bar-item path="/profile">
         <template v-slot:img>
           <img src="~assets/img/tabbar/profile.svg" alt="" />
         </template>

@@ -1,6 +1,6 @@
 <template>
    <div class="navbar">
-       <div class="left"><slot name="left"></slot>1</div>
+       <div class="left"><slot name="left">1</slot></div>
        <div class="center"><slot name="center">蘑菇街</slot></div>
        <div class="right"><slot name="right">2</slot></div>
    </div>
@@ -20,11 +20,6 @@ export default{
     background-color: #ef919f;
     box-shadow: 0 1px 2px #e0b0b0;
     display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9;
     .left{
         width: 60px;
     }

@@ -1,6 +1,12 @@
 <template>
   <div id="home">
     <nav-bar></nav-bar>
+    <tab-contorl
+      @clickTab="clickTab"
+      :tabTitle="['流行', '新款', '精选']"
+      class="tabShow"
+      v-show="isShow"
+    ></tab-contorl>
     <div class="homeWrapper">
       <div class="content">
         <swiper :banner="banner" class="homeBanner"></swiper>
@@ -26,10 +32,10 @@ import TabContorl from "components/content/tabContorl/TabContorl";
 import GoodsList from "./childComps/GoodsList";
 import BackTop from "components/content/backTop/BackTop";
 
-import { onMounted, ref, reactive, nextTick, watchEffect } from "vue";
+import { onMounted, ref, reactive, nextTick, watchEffect, onActivated, onDeactivated } from "vue";
 import { getHomeData, getGoodsData } from "network/home";
 import BetterScroll from "better-scroll";
-import { useStore } from 'vuex';
+import { useStore } from "vuex";
 
 export default {
   name: "Home",
@@ -63,6 +69,7 @@ export default {
       //nextTick：dom渲染完成之后执行
       nextTick(() => {
         bScroll && bScroll.refresh();
+        bScroll.scrollTo(0, -595, 0);
       });
     };
 
@@ -71,19 +78,29 @@ export default {
     };
 
     //防抖
-   const debounce = (fn,delay) => {
-        let timer = null;
-        return function(){
-          if(timer){clearTimeout(timer);}
-          timer = setTimeout(() => {
-            fn
-          },delay)
-      }
-   }
+    const debounce = (fn, delay) => {
+      let timer = null;
+      return function () {
+        if (timer) {
+          clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+          fn;
+        }, delay);
+      };
+    };
 
     watchEffect(() => {
-     debounce(console.log(store.state.homeImg),500)()
+      //  debounce(console.log(store.state.homeImg),500)()
+    });
+    
+   onActivated(()=>{
+          console.log('进入home'); 
     })
+   onDeactivated(()=>{
+          console.log('离开home'); 
+    })
+ 
 
     onMounted(() => {
       getHomeData().then((res) => {
@@ -119,7 +136,7 @@ export default {
       });
 
       bScroll.on("scroll", (position) => {
-        isShow.value = bScroll && -position.y > 700;
+        isShow.value = bScroll && -position.y > 595;
       });
 
       // console.log(document.querySelector('.content').offsetHeight)
@@ -151,6 +168,12 @@ export default {
   .homeWrapper {
     height: 100vh;
     overflow: hidden;
+  }
+  .tabShow{
+    width: 100%;
+    height: 45px;
+    position: fixed;
+    top: 45px;
   }
 }
 </style>

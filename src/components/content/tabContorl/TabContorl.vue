@@ -6,7 +6,7 @@
       v-for="(item, index) in tabTitle"
       :key="item"
     >
-      <span :class="{ spanActive: currentIndex === index }">
+      <span :class="{ spanActive: $store.state.tabCurrentIndex === index }">
         {{ item }}
       </span>
     </div>
@@ -15,6 +15,7 @@
 
 <script>
 import {ref } from "vue"
+import {useStore, } from "vuex"
 export default {
   name: "TabContorl",
   props: {
@@ -28,8 +29,9 @@ export default {
 
   setup(props,context){
       const currentIndex = ref(0)
+      const store = useStore();
       const tabClick = (index)=>{
-          currentIndex.value = index;
+          store.state.tabCurrentIndex = index;
           context.emit('clickTab',index)
       }
       return{
