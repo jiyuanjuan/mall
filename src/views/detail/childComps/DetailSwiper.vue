@@ -1,18 +1,21 @@
 <template>
-  <div id="swiper" >
-    <van-swipe class="my-swipe" :autoplay="2000" indicator-color="white"  lazy-render>
-      <a :href="item.link"  v-for="item in imgData" :key="item.acm">
-      <van-swipe-item>
-        <img :src="item.image" alt="">
+  <div id="swiper">
+    <van-swipe
+      class="detail-swipe"
+      :autoplay="2000"
+      indicator-color="white"
+      lazy-render
+    >
+      <van-swipe-item v-for="item in imgData" :key="item">
+        <img :src="item" alt="" />
       </van-swipe-item>
-      </a>
     </van-swipe>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SwiperItem",
+  name: "DetailSwiper",
   props: {
     imgData: {
       type: Array,
@@ -26,9 +29,10 @@ export default {
 
 <style scope lang="scss">
 #swiper {
-  .my-swipe {
+  .detail-swipe{
     text-align: center;
-    img{
+    height: 400px;
+    img {
       width: 100%;
     }
   }

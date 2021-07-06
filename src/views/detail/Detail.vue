@@ -1,56 +1,60 @@
 <template>
   <div id="detail">
-    <nav-bar>
-      <template v-slot:left>
-        <div class="detail-nav" @click="back">
-          <img src="~assets/img/common/back_nav.png" alt="" />
-        </div>
-      </template>
-      <template v-slot:center>
-        <div
-          v-for="(item,index) in titles"
-          :key="item"
-          :class="{ active: currentIndex === index }"
-          @click="clickItem(index)"
-        >
-          {{ item }}
-        </div>
-      </template>
-    </nav-bar>
-    {{ iid }}
+    <detail-nav-bar></detail-nav-bar>
+    <detail-swiper :imgData="banner"></detail-swiper>
+    <detail-base-info
+      :baseInfo="baseInfo"
+      :baseColumns="baseColumns"
+      :baseServe="baseServe"
+    ></detail-base-info>
+    <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
   </div>
 </template>
 
 <script>
-import NavBar from "components/common/navbar/NavBar";
+import DetailNavBar from "./childComps/DetailNavBar";
+import DetailSwiper from "./childComps/DetailSwiper";
+import DetailBaseInfo from "./childComps/DetailBaseInfo";
+import DetailShopInfo from "./childComps/DetailShopInfo"
 
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+import { detailData } from "network/detail";
 
 export default {
   name: "Detail",
-  data() {
-    return {
-      titles: ["商品", "参数", "评论", "推荐"],
-      iid: this.$route.params.id,
-    };
-  },
   components: {
-    NavBar,
+    DetailNavBar,
+    DetailSwiper,
+    DetailBaseInfo,
+    DetailShopInfo,
   },
   setup() {
-    const router = useRouter();
-    const currentIndex = ref(0);
-    const back = () => {
-      router.go(-1);
-    };
-    const clickItem = (index) => {
-      currentIndex.value = index
-    };
+    const route = useRoute();
+    const banner = ref([]);
+    const baseInfo = ref([]);
+    const baseColumns = ref([]);
+    const baseServe = ref([]);
+    const shopInfo = ref([]);
+    let iid = ref(route.params.id);
+    onMounted(() => {
+      detailData(iid.value).then((res) => {
+        console.log(res);
+        banner.value = res.data.result.itemInfo.topImages;
+        baseInfo.value = res.data.result.itemInfo;
+        baseColumns.value = res.data.result.columns;
+        baseServe.value = res.data.result.shopInfo.services;
+        shopInfo.value = res.data.result.shopInfo
+        console.log(shopInfo.value)
+      });
+    });
     return {
-      back,
-      clickItem,
-      currentIndex
+      iid,
+      banner,
+      baseInfo,
+      baseColumns,
+      baseServe,
+      shopInfo
     };
   },
 };
@@ -58,7 +62,7 @@ export default {
 
 <style scope lang='scss'>
 .active {
-  color:#fefefe;
+  color: #fefefe;
 }
 #detail {
   width: 100%;

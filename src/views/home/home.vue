@@ -9,7 +9,7 @@
     ></tab-contorl>
     <div class="homeWrapper">
       <div class="content">
-        <swiper :banner="banner" class="homeBanner"></swiper>
+        <swiper :imgData="banner" class="homeBanner"></swiper>
         <recommend-goods :recommend="recommend"></recommend-goods>
         <feature-goods></feature-goods>
         <tab-contorl
@@ -32,7 +32,15 @@ import TabContorl from "components/content/tabContorl/TabContorl";
 import GoodsList from "./childComps/GoodsList";
 import BackTop from "components/content/backTop/BackTop";
 
-import { onMounted, ref, reactive, nextTick, watchEffect, onActivated, onDeactivated } from "vue";
+import {
+  onMounted,
+  ref,
+  reactive,
+  nextTick,
+  watchEffect,
+  onActivated,
+  onDeactivated,
+} from "vue";
 import { getHomeData, getGoodsData } from "network/home";
 import BetterScroll from "better-scroll";
 import { useStore } from "vuex";
@@ -94,13 +102,12 @@ export default {
       //  debounce(console.log(store.state.homeImg),500)()
     });
     
-   onActivated(()=>{
-          console.log('进入home'); 
-    })
-   onDeactivated(()=>{
-          console.log('离开home'); 
-    })
- 
+    onActivated(() => {
+      console.log("进入home");
+    });
+    onDeactivated(() => {
+      console.log("离开home");
+    });
 
     onMounted(() => {
       getHomeData().then((res) => {
@@ -169,7 +176,7 @@ export default {
     height: 100vh;
     overflow: hidden;
   }
-  .tabShow{
+  .tabShow {
     width: 100%;
     height: 45px;
     position: fixed;
