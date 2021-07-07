@@ -1,5 +1,5 @@
 <template>
-  <nav-bar>
+  <nav-bar class="detail-nav-bar">
     <template v-slot:left>
       <div class="detail-nav" @click="back">
         <img src="~assets/img/common/back_nav.png" alt="" />
@@ -53,4 +53,26 @@ export default {
 </script>
 
 <style scope lang='scss'>
+.detail-nav-bar{
+  position: relative;
+  z-index: 9;
+}
+.active {
+  color: #fefefe;
+}
+  .left {
+    .detail-nav {
+      img {
+        width: 25px;
+        margin-top: 10px;
+      }
+    }
+  }
+  .center {
+    display: flex;
+    div {
+      flex: 1;
+      font-size: 14px;
+    }
+  }
 </style>

@@ -1,13 +1,17 @@
 <template>
   <div id="detail">
     <detail-nav-bar></detail-nav-bar>
-    <detail-swiper :imgData="banner"></detail-swiper>
-    <detail-base-info
-      :baseInfo="baseInfo"
-      :baseColumns="baseColumns"
-      :baseServe="baseServe"
-    ></detail-base-info>
-    <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
+    <div class="detailwrapper">
+      <div class="detailcontent">
+        <detail-swiper :imgData="banner"></detail-swiper>
+        <detail-base-info :shopBase="shopBase.value"></detail-base-info>
+        <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
+        <detail-goods :detailGoods="detailGoods"></detail-goods>
+        <detail-params :detailParams="detailParams"></detail-params>
+        <detail-comment :detailComment="detailComment"></detail-comment>
+        <detail-recomment></detail-recomment>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,11 +19,16 @@
 import DetailNavBar from "./childComps/DetailNavBar";
 import DetailSwiper from "./childComps/DetailSwiper";
 import DetailBaseInfo from "./childComps/DetailBaseInfo";
-import DetailShopInfo from "./childComps/DetailShopInfo"
+import DetailShopInfo from "./childComps/DetailShopInfo";
+import DetailGoods from "./childComps/DetailGoods";
+import DetailParams from "./childComps/DetailParams";
+import DetailComment from "./childComps/DetailComment";
+import DetailRecomment from "./childComps/DetailRecomment";
 
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref, nextTick } from "vue";
 import { useRoute } from "vue-router";
-import { detailData } from "network/detail";
+import { detailData, shopBaseInfo, } from "network/detail";
+import BScroll from "better-scroll";
 
 export default {
   name: "Detail",
@@ -28,58 +37,72 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailGoods,
+    DetailParams,
+    DetailComment,
+    DetailRecomment
   },
   setup() {
     const route = useRoute();
     const banner = ref([]);
-    const baseInfo = ref([]);
-    const baseColumns = ref([]);
-    const baseServe = ref([]);
     const shopInfo = ref([]);
+    const shopBase = reactive({});
+    const detailGoods = ref([]);
+    const detailParams = ref([]);
+    const detailComment = ref([]);
+
+    let bScroll = reactive({});
     let iid = ref(route.params.id);
+
     onMounted(() => {
       detailData(iid.value).then((res) => {
-        console.log(res);
         banner.value = res.data.result.itemInfo.topImages;
-        baseInfo.value = res.data.result.itemInfo;
-        baseColumns.value = res.data.result.columns;
-        baseServe.value = res.data.result.shopInfo.services;
-        shopInfo.value = res.data.result.shopInfo
-        console.log(shopInfo.value)
+        shopInfo.value = res.data.result.shopInfo;
+        shopBase.value = new shopBaseInfo(
+          res.data.result.itemInfo,
+          res.data.result.columns,
+          res.data.result.shopInfo.services
+        );
+        detailGoods.value = res.data.result.detailInfo;
+        detailParams.value = res.data.result.itemParams.rule.tables;
+        detailComment.value = res.data.result.rate.list
+                console.log(res.data.result);
+      });
+
+      bScroll = new BScroll(".detailwrapper", {
+        pullUpLoad: true,
+        click: true,
+        probeType: 3,
+      });
+      bScroll.on("pullingUp", () => {
+        bScroll.finishPullUp();
+        bScroll.refresh();
+      });
+      nextTick(() => {
+        bScroll && bScroll.refresh();
       });
     });
     return {
+      bScroll,
       iid,
       banner,
-      baseInfo,
-      baseColumns,
-      baseServe,
-      shopInfo
+      shopBase,
+      shopInfo,
+      detailGoods,
+      detailParams,
+      detailComment,
+
     };
   },
 };
 </script>
 
 <style scope lang='scss'>
-.active {
-  color: #fefefe;
+.detailwrapper {
+  height: 100vh;
 }
+
 #detail {
   width: 100%;
-  .left {
-    .detail-nav {
-      img {
-        width: 25px;
-        margin-top: 10px;
-      }
-    }
-  }
-  .center {
-    display: flex;
-    div {
-      flex: 1;
-      font-size: 14px;
-    }
-  }
 }
 </style>

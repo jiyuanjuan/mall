@@ -2,7 +2,8 @@
   <div>
   <router-view v-slot="{ Component }">
     <transition>
-      <keep-alive exclude="Detail">
+      <!-- exclude里的Detail匹配的是export default里的name属性 -->
+      <keep-alive exclude="Detail"> 
         <component :is="Component" />
       </keep-alive>
     </transition>

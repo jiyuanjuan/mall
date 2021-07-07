@@ -1,22 +1,21 @@
 <template>
   <div id="detail-base-info">
     <div>
-      <h4>{{ baseInfo.title }}</h4>
+      <h4>{{ shopBase.title }}</h4>
     </div>
     <div class="price">
-      <span>{{ baseInfo.price }}</span>
-      <span>{{ baseInfo.oldPrice }}</span>
-      <span v-show="baseInfo.discountDesc">{{ baseInfo.discountDesc }}</span>
+      <span>{{ shopBase.price }}</span>
+      <span>{{ shopBase.oldPrice }}</span>
+      <span v-show="shopBase.discountDesc">{{ shopBase.discountDesc }}</span>
     </div>
-    <div class="columns">
-      <span v-for="item in baseColumns.slice(0, 2)" :key="item">
+    <div class="columns" v-if="shopBase.columns">
+      <span v-for="item in shopBase.columns.slice(0,shopBase.columns.length - 1)" :key="item">
         {{ item }}
       </span>
-      <span>72小时发货</span>
-      <!-- <span>{{ baseServe[3].name }}</span> -->
+      <span>{{shopBase.serve[shopBase.serve.length - 1].name}}</span>
     </div>
-    <div class="serve">
-      <div v-for="item in baseServe.slice(0, 3)" :key="item">
+    <div class="serve" v-if="shopBase.serve">
+      <div v-for="item in shopBase.serve.slice(0,shopBase.serve.length - 1)" :key="item">
         <img :src="item.icon" alt="" />
         <span>{{ item.name }}</span>
       </div>
@@ -28,22 +27,10 @@
 export default {
   name: "DetailBaseInfo",
   props: {
-    baseInfo: {
+    shopBase: {
       type: Object,
       default() {
         return {};
-      },
-    },
-    baseColumns: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-    baseServe: {
-      type: Array,
-      default() {
-        return [];
       },
     },
   },
