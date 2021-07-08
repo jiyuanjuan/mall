@@ -25,3 +25,10 @@ export class shopBaseInfo{
 //         this.rule = detailParams.rule;
 //     }
 // }
+
+export function getRecommentData(page='1') {
+    return request({
+        url:'home/data?type=sell' + '&page=' + page,
+        method:'get'
+    });
+}

@@ -9,9 +9,10 @@
         <detail-goods :detailGoods="detailGoods"></detail-goods>
         <detail-params :detailParams="detailParams"></detail-params>
         <detail-comment :detailComment="detailComment"></detail-comment>
-        <detail-recomment></detail-recomment>
+        <detail-recomment :detailRecomment="detailRecomment"></detail-recomment>
       </div>
     </div>
+    <detail-tar-bar></detail-tar-bar>
   </div>
 </template>
 
@@ -27,8 +28,9 @@ import DetailRecomment from "./childComps/DetailRecomment";
 
 import { onMounted, reactive, ref, nextTick } from "vue";
 import { useRoute } from "vue-router";
-import { detailData, shopBaseInfo, } from "network/detail";
+import { detailData, shopBaseInfo, getRecommentData } from "network/detail";
 import BScroll from "better-scroll";
+import DetailTarBar from './childComps/DetailTarBar.vue';
 
 export default {
   name: "Detail",
@@ -40,7 +42,8 @@ export default {
     DetailGoods,
     DetailParams,
     DetailComment,
-    DetailRecomment
+    DetailRecomment,
+    DetailTarBar,
   },
   setup() {
     const route = useRoute();
@@ -50,9 +53,11 @@ export default {
     const detailGoods = ref([]);
     const detailParams = ref([]);
     const detailComment = ref([]);
+    const detailRecomment = ref([]);
 
     let bScroll = reactive({});
     let iid = ref(route.params.id);
+    let page = ref(0);
 
     onMounted(() => {
       detailData(iid.value).then((res) => {
@@ -65,8 +70,13 @@ export default {
         );
         detailGoods.value = res.data.result.detailInfo;
         detailParams.value = res.data.result.itemParams.rule.tables;
-        detailComment.value = res.data.result.rate.list
-                console.log(res.data.result);
+        detailComment.value = res.data.result.rate.list;
+        // console.log(res.data.result);
+      });
+
+      //底部推荐商品
+      getRecommentData().then((res) => {
+        detailRecomment.value = res.list;
       });
 
       bScroll = new BScroll(".detailwrapper", {
@@ -75,6 +85,11 @@ export default {
         probeType: 3,
       });
       bScroll.on("pullingUp", () => {
+        page.value += 1;
+        getRecommentData(page).then((res) => {
+          detailRecomment.value.push(...res.list)
+        });
+        console.log(page.value);
         bScroll.finishPullUp();
         bScroll.refresh();
       });
@@ -91,7 +106,7 @@ export default {
       detailGoods,
       detailParams,
       detailComment,
-
+      detailRecomment,
     };
   },
 };
