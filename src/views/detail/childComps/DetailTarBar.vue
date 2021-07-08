@@ -12,14 +12,31 @@
       <img src="~assets/img/common/collect.png" alt="" />
       <span>收藏</span>
     </div>
-    <div class="tabbar-item2">加入购物车</div>
+    <div class="tabbar-item2" @click="goodsIidClick">加入购物车</div>
     <div class="tabbar-item3">购买</div>
   </div>
 </template>
 
 <script>
+import { ref, } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 export default {
   name: "DetailTabBar",
+  setup() {
+    const route = useRoute();
+    const store = useStore();
+    const goodsIid = ref("");
+
+    const goodsIidClick = () => {
+      goodsIid.value = route.params.id;
+      store.commit("changeCartlist",goodsIid.value);
+    };
+    return {
+      goodsIid,
+      goodsIidClick,
+    };
+  },
 };
 </script>
 

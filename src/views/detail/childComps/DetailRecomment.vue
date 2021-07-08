@@ -67,7 +67,4 @@ export default {
     margin-right: 20px;
   }
 }
-#tabBar{
-  display: none !important;
-}
 </style>

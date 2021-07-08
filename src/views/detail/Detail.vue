@@ -120,4 +120,8 @@ export default {
 #detail {
   width: 100%;
 }
+
+// #tabBar{
+//   display: none;
+// }
 </style>
