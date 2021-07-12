@@ -89,7 +89,6 @@ export default {
         getRecommentData(page).then((res) => {
           detailRecomment.value.push(...res.list)
         });
-        console.log(page.value);
         bScroll.finishPullUp();
         bScroll.refresh();
       });
