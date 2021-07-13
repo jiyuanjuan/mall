@@ -13,18 +13,19 @@
       <span>收藏</span>
     </div>
     <div class="tabbar-item2" @click="goodsIidClick">加入购物车</div>
-    <div class="tabbar-item3">购买</div>
+    <div class="tabbar-item3" @click="goCart">购买</div>
   </div>
 </template>
 
 <script>
 import { ref, } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 export default {
   name: "DetailTabBar",
   setup() {
     const route = useRoute();
+    const router = useRouter()
     const store = useStore();
     const goodsIid = ref("");
 
@@ -32,9 +33,15 @@ export default {
       goodsIid.value = route.params.id;
       store.commit("changeCartlist",goodsIid.value);
     };
+
+    const goCart = () => {
+      router.push('/cart')
+    }
+    
     return {
       goodsIid,
       goodsIidClick,
+      goCart
     };
   },
 };

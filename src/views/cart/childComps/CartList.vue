@@ -1,28 +1,46 @@
 <template>
   <div id="cart-list">
-     <cart-list-item></cart-list-item> 
-     <cart-price></cart-price>
+    <div v-if="buyList">
+      <div v-for="item in buyList" :key="item">
+        <cart-list-item
+          v-for="item2 in item"
+          :key="item2"
+          :getList="item2.data.result"
+        ></cart-list-item>
+      </div>
+    </div>
+    <div v-for="item in buyList[0]" :key="item">
+       <div>123</div>
+      </div>
+    <cart-price></cart-price>
   </div>
 </template>
 
 <script>
-import CartListItem from "./CartListItem"
-import CartPrice from "./CartPrice"
+import CartListItem from "./CartListItem";
+import CartPrice from "./CartPrice";
 
 export default {
   name: "CartList",
-  components:{
-      CartListItem,
-      CartPrice
-  }
+  props: {
+    buyList: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
+  components: {
+    CartListItem,
+    CartPrice,
+  },
 };
 </script>
 
 <style scope lang='scss'>
-#cart-list{
-    position: relative;
-    height: calc(100vh - 45px - 49px);
-    background-color: grey;
-    overflow: hidden;
+#cart-list {
+  position: relative;
+  height: calc(100vh - 45px - 49px);
+  overflow: hidden;
 }
 </style>
