@@ -6,7 +6,7 @@
       </div>
     </template>
     <template v-slot:center>
-      <div
+      <div 
         v-for="(item, index) in titles"
         :key="item"
         :class="{ active: currentIndex === index }"
@@ -34,11 +34,12 @@ export default {
   components: {
     NavBar,
   },
-  setup() {
+  setup(props,{emit}) {
     const router = useRouter();
     const currentIndex = ref(0);
     const clickItem = (index) => {
       currentIndex.value = index;
+      emit('navItem',index)
     };
     const back = () => {
       router.go(-1);

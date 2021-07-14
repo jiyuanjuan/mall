@@ -1,6 +1,6 @@
 <template>
   <div id="detail">
-    <detail-nav-bar></detail-nav-bar>
+    <detail-nav-bar @navItem="navItem"></detail-nav-bar>
     <div class="detailwrapper">
       <div class="detailcontent">
         <detail-swiper :imgData="banner"></detail-swiper>
@@ -9,7 +9,11 @@
         <detail-goods :detailGoods="detailGoods"></detail-goods>
         <detail-params :detailParams="detailParams"></detail-params>
         <detail-comment :detailComment="detailComment"></detail-comment>
-        <detail-recomment :detailRecomment="detailRecomment"></detail-recomment>
+        <detail-recomment
+          :detailRecomment="detailRecomment"
+          @imgLoad="imgLoad"
+          ref="test"
+        ></detail-recomment>
       </div>
     </div>
     <detail-tar-bar></detail-tar-bar>
@@ -25,15 +29,17 @@ import DetailGoods from "./childComps/DetailGoods";
 import DetailParams from "./childComps/DetailParams";
 import DetailComment from "./childComps/DetailComment";
 import DetailRecomment from "./childComps/DetailRecomment";
+import DetailTarBar from "./childComps/DetailTarBar";
 
 import { onMounted, reactive, ref, nextTick } from "vue";
 import { useRoute } from "vue-router";
 import { detailData, shopBaseInfo, getRecommentData } from "network/detail";
 import BScroll from "better-scroll";
-import DetailTarBar from './childComps/DetailTarBar.vue';
+
 
 export default {
   name: "Detail",
+  emits: ["navItem"],
   components: {
     DetailNavBar,
     DetailSwiper,
@@ -54,6 +60,8 @@ export default {
     const detailParams = ref([]);
     const detailComment = ref([]);
     const detailRecomment = ref([]);
+    const navTop = ref([0]);
+    // const test = ref()
 
     let bScroll = reactive({});
     let iid = ref(route.params.id);
@@ -74,7 +82,7 @@ export default {
         // console.log(res.data.result);
       });
 
-      //底部推荐商品
+      //获取详情页底部推荐商品
       getRecommentData().then((res) => {
         detailRecomment.value = res.list;
       });
@@ -87,7 +95,7 @@ export default {
       bScroll.on("pullingUp", () => {
         page.value += 1;
         getRecommentData(page).then((res) => {
-          detailRecomment.value.push(...res.list)
+          detailRecomment.value.push(...res.list);
         });
         bScroll.finishPullUp();
         bScroll.refresh();
@@ -96,6 +104,17 @@ export default {
         bScroll && bScroll.refresh();
       });
     });
+    const imgLoad = () => {
+      navTop.value.push(document.querySelector("#detail-params").offsetTop);
+      navTop.value.push(document.querySelector("#detail-comment").offsetTop);
+      navTop.value.push(document.querySelector("#detail-recomment").offsetTop);
+
+    //  document.querySelector('.detailwrapper').style.top = '-2000px'
+      // console.log(test.value.$el)   setup中refs的应用
+    };
+    const navItem = (index) => {
+      bScroll && bScroll.scrollTo(0, -navTop.value[index], 600);
+    };
     return {
       bScroll,
       iid,
@@ -106,6 +125,9 @@ export default {
       detailParams,
       detailComment,
       detailRecomment,
+      imgLoad,
+      navItem,
+      // test
     };
   },
 };

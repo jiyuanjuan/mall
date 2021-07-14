@@ -7,16 +7,13 @@
         v-for="item in detailRecomment"
         :key="item"
       >
-        <img :src="item.show.img" alt="" />
+        <img :src="item.show.img" alt="" @load="detailImgLoad" />
         <div class="detail-recomment-content">
           <p>{{ item.title }}</p>
           <span>{{ item.price }}</span>
           <span>{{ item.cfav }}</span>
         </div>
       </div>
-    </div>
-    <div class="recomment-item">
-      <img src="" alt="" />
     </div>
   </div>
 </template>
@@ -31,6 +28,29 @@ export default {
         return {};
       },
     },
+  },
+  setup(props,context) {
+    const detailImgLoad = () => {
+      fn1()
+    };
+    const dbounce = (fn) => {
+      let timer = null;
+      return () => {
+        if (timer) {
+          clearTimeout(timer);
+        }
+        timer = setTimeout(fn, 300);
+      };
+    };
+    const fn = () => {
+     context.emit('imgLoad')
+    };
+    const fn1 = dbounce(fn);
+    return {
+      detailImgLoad,
+      dbounce,
+      fn1,
+    };
   },
 };
 </script>
@@ -48,14 +68,14 @@ export default {
 .detail-recomment-item {
   position: relative;
   width: 45%;
-  overflow:hidden;
+  overflow: hidden;
   padding: 10px 5px 60px 5px;
   img {
     width: 100%;
   }
 }
 .detail-recomment-content {
-  position:absolute;
+  position: absolute;
   bottom: 10px;
   font-size: 14px;
   p {

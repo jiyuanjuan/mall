@@ -132,8 +132,8 @@ export default {
 
       bScroll.on("pullingUp", () => {
         let page = goodsData[currentType.value].page + 1;
-        console.log(currentType.value);
-        console.log(page);
+        // console.log(currentType.value);
+        // console.log(page);
         getGoodsData(currentType.value, page).then((res) => {
           goodsData[currentType.value].list.push(...res.list);
           goodsData[currentType.value].page += 1;
