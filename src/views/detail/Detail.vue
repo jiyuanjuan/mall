@@ -36,7 +36,6 @@ import { useRoute } from "vue-router";
 import { detailData, shopBaseInfo, getRecommentData } from "network/detail";
 import BScroll from "better-scroll";
 
-
 export default {
   name: "Detail",
   emits: ["navItem"],
@@ -61,11 +60,13 @@ export default {
     const detailComment = ref([]);
     const detailRecomment = ref([]);
     const navTop = ref([0]);
+
     // const test = ref()
 
     let bScroll = reactive({});
     let iid = ref(route.params.id);
     let page = ref(0);
+    let currentIndex = ref();
 
     onMounted(() => {
       detailData(iid.value).then((res) => {
@@ -92,6 +93,9 @@ export default {
         click: true,
         probeType: 3,
       });
+      // bScroll.on("scroll", (position) => {
+      //   console.log(position.y)
+      // });
       bScroll.on("pullingUp", () => {
         page.value += 1;
         getRecommentData(page).then((res) => {
@@ -109,11 +113,12 @@ export default {
       navTop.value.push(document.querySelector("#detail-comment").offsetTop);
       navTop.value.push(document.querySelector("#detail-recomment").offsetTop);
 
-    //  document.querySelector('.detailwrapper').style.top = '-2000px'
+      //  document.querySelector('.detailwrapper').style.top = '-2000px'
       // console.log(test.value.$el)   setup中refs的应用
     };
     const navItem = (index) => {
-      bScroll && bScroll.scrollTo(0, -navTop.value[index], 600);
+      currentIndex.value = index;
+      bScroll && bScroll.scrollTo(0, -navTop.value[currentIndex.value], 600);
     };
     return {
       bScroll,
@@ -127,6 +132,7 @@ export default {
       detailRecomment,
       imgLoad,
       navItem,
+      currentIndex,
       // test
     };
   },

@@ -9,9 +9,6 @@
         ></cart-list-item>
       </div>
     </div>
-    <div v-for="item in buyList[0]" :key="item">
-       <div>123</div>
-      </div>
     <cart-price></cart-price>
   </div>
 </template>

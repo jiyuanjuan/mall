@@ -1,18 +1,21 @@
 <template>
   <div class="cart-list-buy">
-    <div class="cart-list-item">
-      <div class="cart-img">
-        <img :src="getList.detailInfo.detailImage[0].list[0]" alt="" />
-      </div>
-      <div class="cart-content">
-        <span>{{ getList.skuInfo.title }}</span>
-        <span>商品描述：{{ getList.detailInfo.desc }}</span>
-        <div class="cart-price">
-          <span>{{ getList.skuInfo.defaultPrice }}</span>
-          <span>{{this.$store.state.cartlist[0]}}</span>
+    <label>
+      <div class="cart-list-item">
+        <input type="checkbox" />
+        <div class="cart-img">
+          <img :src="getList.detailInfo.detailImage[0].list[0]" alt="" />
+        </div>
+        <div class="cart-content">
+          <span>{{ getList.skuInfo.title }}</span>
+          <span>商品描述：{{ getList.detailInfo.desc }}</span>
+          <div class="cart-price">
+            <span>{{ getList.skuInfo.defaultPrice }}</span>
+            <!-- <span>{{ this.$store.state.cartlist[0] }}</span> -->
+          </div>
         </div>
       </div>
-    </div>
+    </label>
   </div>
 </template>
 
@@ -38,13 +41,14 @@ export default {
 .cart-list-item {
   display: flex;
   padding: 5px;
-
+  justify-items: center;
+  align-items: center;
   border-bottom: 1px solid #ccc;
   .cart-img {
-    margin-right: 10px;
+    margin:0 10px;
     flex: 1;
     img {
-      border-radius:5px;
+      border-radius: 5px;
     }
   }
   .cart-content {
@@ -66,11 +70,12 @@ export default {
     flex: 3;
   }
   img {
+    height: 90px;
     width: 100%;
   }
 }
-.cart-price{
-  margin-top: 50px;
+.cart-price {
+  margin-top: 30px;
   color: red;
 }
 </style>
