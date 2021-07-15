@@ -31,8 +31,8 @@ export default {
 
     const goodsIidClick = () => {
       goodsIid.value = route.params.id;
-      store.commit("changeCartlist",goodsIid.value);
-    };
+      store.commit("changeCartlist",goodsIid.value)
+    }
 
     const goCart = () => {
       router.push('/cart')

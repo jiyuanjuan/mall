@@ -35,6 +35,13 @@ export default {
     const buyList = ref([]);
     onMounted(() => {
       cart.value = store.state.cartlist;
+      Promise.all(
+        cart.value.map((e) => {
+          return getCart(e[0]);
+        })
+      ).then((res) => {
+        buyList.value.push(res);
+      });
     });
     onBeforeUpdate(() => {
       buyList.value = [];

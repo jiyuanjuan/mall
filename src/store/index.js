@@ -4,7 +4,9 @@ import  mutations  from './mutations'
 const state = {
   homeImg: 0,
   tabCurrentIndex: 0,
-  cartlist: []
+  cartlist: [],
+  message:'',
+  isToast:false,
 }
 
 export default createStore({

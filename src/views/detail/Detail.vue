@@ -17,6 +17,7 @@
       </div>
     </div>
     <detail-tar-bar></detail-tar-bar>
+    <toast></toast>
   </div>
 </template>
 
@@ -30,6 +31,7 @@ import DetailParams from "./childComps/DetailParams";
 import DetailComment from "./childComps/DetailComment";
 import DetailRecomment from "./childComps/DetailRecomment";
 import DetailTarBar from "./childComps/DetailTarBar";
+import Toast from "components/common/toast/Toast"
 
 import { onMounted, reactive, ref, nextTick } from "vue";
 import { useRoute } from "vue-router";
@@ -49,6 +51,7 @@ export default {
     DetailComment,
     DetailRecomment,
     DetailTarBar,
+    Toast,
   },
   setup() {
     const route = useRoute();
