@@ -54,6 +54,7 @@ export default {
         })
       ).then((res) => {
         buyList.value.push(res);
+        // console.log(buyList.value[0]) 
       });
     });
     return {
@@ -65,5 +66,8 @@ export default {
 </script>
 
 <style scope lang='scss'>
+#cart{
+   touch-action: none;
+}
 </style>
 
